@@ -1,0 +1,126 @@
+\documentclass{article}
+
+\usepackage[nogin]{Sweave}
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\title { India Internet Usage}
+\author { Rajneesh Kumar Pandey
+\\ School of Information Technology 
+\\ Illinois State University
+\\
+\texttt{ rkpande@ilstu.edu}}
+\date{\today} 
+
+\maketitle
+
+\section{Introduction}
+\vspace{1cm}
+
+
+\subsection{Internet}
+\vspace{1cm}
+\vspace{1cm}
+The Internet is a global system of interconnected computer networks that allows people to send information quickly between computers or other Internet enabled devices around the world. It uses the standard Internet protocol suite (TCP/IP) to link several billion devices worldwide. It is an international network of networks that consists of millions of packet switched networks which carry private, public, academic, business and government data. The Internet is also referred to as the Net. It provides an extremely large number of network services like the World Wide Web, electronic mail, Internet phone, audio, video and file transfer services. From 2000 to 2009, enormous growth has been seen by Internet usage; the number of Internet users globally rose from 394 million to 1.858 billion. The Internet can be accessed almost anywhere in the world through Internet enabled devices. Some of the main reasons for users attraction towards the Internet include social networking and entertainment.
+
+\vspace{1cm}
+
+\subsection{India and Internet usage in India}
+\vspace{1cm}
+
+\vspace{1cm}
+India is a country in South Asia with the population over 1.2 billion, which makes it  the second-most populous country in the world. It is also the most populous democracy in the world, and  the seventh-largest country by area. It has the world's tenth-largest economy by nominal GDP. India got independence in 1947 and Mohandas Karamchand Gandhi was the preeminent leader of Indian independence movement in British-ruled India, who led Indeia to independence. Gandhi inspired movements for civil rights and freedom across the world. India has 29 states and 7 union territories. Currently, there are around 780 languages people spaek in India and the country has lost around 250 languages in the last 50 years.\\
+India is ranked the third largest online user base globally after China and the United States, it has had the lowest internet penetration growth in Asia Pacific in the year 2014 though, research firm eMarketer said in a report. While Indians mainly use the Internet for communication, social networking has also been an important driver for the Internet use in India.\\
+Moreover, there are some interesting facts about the internet usage in India. India has the huge population of 1.2 billion, out of which only a small chunk uses the Internet. Currently, there are around 243 million Internet users in India. Number of Internet users may increase to 500 million by the year 2018. By the end of 2014, India will beat the United States in terms of Internet users, told by Rajan Anandan, MD, Google India.
+
+\vspace{1cm}
+
+\section{Reproducible Research}
+
+\subsection{Code}
+\subsubsection{Obtaining the Data from the on-line source}
+
+These are the packages being used
+<<include=FALSE>>=
+#We will be using Quandl and ggplot2
+library(Quandl)
+library(ggplot2)
+
+IndiaInternetStats = Quandl("IWS/INDIAINTERNETSTATS",authcode="ZDuWCWDyWHtzZi_rHoAY")
+
+colnames(IndiaInternetStats)[colnames(IndiaInternetStats) == "% Pen."] <- "PercentagePen" #Renaming the column
+#Table shows that India Internet Usage Stats
+IndiaInternetStats
+
+@
+\vspace{1cm}
+As we can see that there is no need of cleaning the data as it is already cleaned.
+Now we will explore the data by using some commands.
+
+\subsection{Commands}
+\subsubsection{Class()}
+R possesses a simple generic function mechanism which can be used for an object-oriented style of programming.
+<<include=FALSE>>=
+class(IndiaInternetStats)
+@
+As we can see that above result of a class of objext "IndiaInternetStats" is a data frame.
+
+\subsubsection{Str()}
+To display the internal structure of an object in R compactly, we use command "str()". It does not return anything for efficiency reasons.
+<<label=chunk8,include=FALSE>>=
+str(IndiaInternetStats)
+@
+As we can see in the above result that all coloumns are defined by their types, e.g. Coloumn Year is in date format and rest are numeric type.
+
+\subsubsection{summary()}
+"summary()" is a generic function and it is used to give result summaries of the results of different model fitting functions.
+<<include=FALSE>>=
+summary(IndiaInternetStats)
+@
+The above result shows that how command "summary()" works and provides maximum, minimum, mean and median statistics.
+\vspace{1cm}
+
+
+
+
+\section{Results}
+\subsection{Data description}
+
+<<echo=FALSE,include=FALSE>>=
+IndiaInternetStats
+@
+
+\begin{description}
+\item [YEAR] is a column in data format and it ranges from 12/31/1998 to 12/31/2012.
+\item [Users] is a column of numeric type which tells number of Internet users.
+\item [Population] is a column of numeric type tell about the population according to the "YEAR" column.
+\item [PercentagePen] is a column which tells about the percentage penetration. It is the percentage of a country's population that are Internet users.
+\end{description}
+
+\subsection{Graph}
+\subsubsection{Graph for Population and Internet users of India}
+
+<<label=chunk11,fig=TRUE,include=TRUE,height=4, width=7>>=
+ggplot(data=IndiaInternetStats, aes(x=YEAR)) + ylab("")+
+  geom_line(aes(y = Users, colour = "Users")) + 
+  geom_line(aes(y = Population, colour = "Population"))+
+  ggtitle("Graph 1") +   # Set title
+  scale_colour_hue(name="") 
+@
+Graph 1 shows that population growth rate and Internet users growth rate. 
+
+\subsubsection{Graph for Percentage penetration}
+<<label=chunk12,fig=TRUE,include=TRUE,height=4, width=7>>=
+  ggplot(data=IndiaInternetStats, aes(x=YEAR)) + ylab("")+
+  geom_line(aes(y = PercentagePen,color ="PercentagePen")) + 
+  ggtitle("Graph 2") +   # Set title
+  scale_colour_hue(name="") 
+@
+Graph 2 shows percentage penetration growth from the year 1998 to 2012.
+
+
+The above line graphs shows the growth of the internet users with respect to population in particular year.
+
+
+
+\end{document}/
